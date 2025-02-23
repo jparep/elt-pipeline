@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: employee
+    database: employee_db
+    schema: employee
+    tables:
+      - name: raw_employees
+
+models:
+  - name: stg_employees
+    description: "Staging table for employee data"
+  - name: employees
+    description: "Final transformed employee data"
