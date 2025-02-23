@@ -54,7 +54,8 @@ def lambda_handler(event, context):
             copy_sql = f"""
                 COPY INTO employee_db.employee.raw_employees
                 FROM {stage_path}
-                FILE_FORMAT = (TYPE = 'CSV', SKIP_HEADER = 1);
+                FILE_FORMAT = (TYPE = 'CSV', SKIP_HEADER = 1)
+                FORCE = TRUE;
             """
             cursor.execute(copy_sql)
             conn.commit()
