@@ -1,6 +1,8 @@
 import boto3
 import pandas as pd
 import io
+import os
+import requests
 
 # AWS S3 Configuration
 S3_BUCKET = "s3-sfbucket"
@@ -9,8 +11,10 @@ S3_FILE = "employee.csv"
 # Initialize S3 client
 s3_client = boto3.client("s3")
 
-# Function to read, update, and upload the file
 def append_records_to_s3():
+    """
+    Read employee.csv from S3, append 5 new records, and re-upload.
+    """
     try:
         # 1️⃣ Read existing file from S3
         print(f"Downloading `{S3_FILE}` from `{S3_BUCKET}`...")
@@ -20,13 +24,13 @@ def append_records_to_s3():
         # Convert CSV content to DataFrame
         df_existing = pd.read_csv(io.StringIO(existing_data))
 
-        # 2️⃣ Create new records to append
+        # 2️⃣ Create new records with matching columns
         new_records = pd.DataFrame([
-            {"id": 106, "name": "Alice Johnson", "department": "Engineering", "salary": 75000},
-            {"id": 107, "name": "Bob Martin", "department": "Marketing", "salary": 68000},
-            {"id": 108, "name": "Emma Brown", "department": "Sales", "salary": 59000},
-            {"id": 109, "name": "Olivia Green", "department": "HR", "salary": 62000},
-            {"id": 110, "name": "Liam White", "department": "Finance", "salary": 77000}
+            {"first": "Sam", "last": "Williams", "age": 22, "sex": "Male"},
+            {"first": "Emily", "last": "Brown", "age": 21, "sex": "Female"},
+            {"first": "Liam", "last": "Taylor", "age": 19, "sex": "Male"},
+            {"first": "Sophia", "last": "Anderson", "age": 18, "sex": "Female"},
+            {"first": "Michael", "last": "Clark", "age": 23, "sex": "Male"}
         ])
 
         # 3️⃣ Append new records to existing DataFrame
