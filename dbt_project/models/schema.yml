@@ -2,21 +2,7 @@ version: 2
 
 models:
   - name: stg_employees
-    description: "Staging model for raw employee data from Snowflake"
-    columns:
-      - name: first
-        description: "Employee's first name"
-      - name: last
-        description: "Employee's last name"
-      - name: age
-        description: "Employee's age"
-      - name: sex
-        description: "Employee's gender (M/F/Unknown)"
-      - name: load_time
-        description: "Timestamp when the record was loaded"
-
-  - name: employees
-    description: "Transformed employee data with additional analytics"
+    description: "Staging view for transformed employee data in Snowflake"
     columns:
       - name: first
         description: "Employee's first name"
@@ -30,3 +16,17 @@ models:
         description: "Age group categorization"
       - name: load_time
         description: "Timestamp when the record was loaded"
+
+  - name: employees
+    description: "Aggregated and transformed employee data"
+    columns:
+      - name: age_group
+        description: "Age group categorization"
+      - name: sex
+        description: "Employee's gender (M/F/Unknown)"
+      - name: employee_count
+        description: "Number of employees in the group"
+      - name: avg_age
+        description: "Average age in the group"
+      - name: last_updated
+        description: "Most recent load timestamp"
