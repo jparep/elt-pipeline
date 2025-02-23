@@ -27,3 +27,6 @@ models:
       materialized: table
     transformed:
       materialized: table
+
+on-run-end:
+  - "{{ validate_etl_data('employee_db.employee.employees') }}"

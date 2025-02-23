@@ -109,7 +109,7 @@ def lambda_handler(event, context):
             # Load: Insert into Snowflake
             load_to_snowflake(transformed_df)
 
-            logger.info(f"✅ Completed ETL for {object_key}.")
+            logger.info(f"Completed ETL for {object_key}.")
 
         return {
             "statusCode": 200,
