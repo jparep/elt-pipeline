@@ -1,14 +1,32 @@
 version: 2
 
-sources:
-  - name: employee
-    database: employee_db
-    schema: employee
-    tables:
-      - name: raw_employees
-
 models:
   - name: stg_employees
-    description: "Staging table for employee data"
+    description: "Staging model for raw employee data from Snowflake"
+    columns:
+      - name: first
+        description: "Employee's first name"
+      - name: last
+        description: "Employee's last name"
+      - name: age
+        description: "Employee's age"
+      - name: sex
+        description: "Employee's gender (M/F/Unknown)"
+      - name: load_time
+        description: "Timestamp when the record was loaded"
+
   - name: employees
-    description: "Final transformed employee data"
+    description: "Transformed employee data with additional analytics"
+    columns:
+      - name: first
+        description: "Employee's first name"
+      - name: last
+        description: "Employee's last name"
+      - name: age
+        description: "Employee's age"
+      - name: sex
+        description: "Employee's gender (M/F/Unknown)"
+      - name: age_group
+        description: "Age group categorization"
+      - name: load_time
+        description: "Timestamp when the record was loaded"
