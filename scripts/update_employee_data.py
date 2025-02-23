@@ -7,9 +7,22 @@ import requests
 # AWS S3 Configuration
 S3_BUCKET = "s3-sfbucket"
 S3_FILE = "employee.csv"
+LAMBDA_FUNCTION_NAME = "sf_lambda"  # Update with your Lambda function name
 
-# Initialize S3 client
+# Initialize AWS clients
 s3_client = boto3.client("s3")
+lambda_client = boto3.client("lambda")
+
+def trigger_lambda():
+    """
+    Invoke AWS Lambda to load new data from S3 into Snowflake.
+    """
+    try:
+        print("🚀 Triggering AWS Lambda to process new data in Snowflake...")
+        response = lambda_client.invoke(FunctionName=LAMBDA_FUNCTION_NAME)
+        print("✅ AWS Lambda triggered successfully:", response)
+    except Exception as e:
+        print(f"❌ Failed to trigger AWS Lambda: {e}")
 
 def append_records_to_s3():
     """
@@ -17,7 +30,7 @@ def append_records_to_s3():
     """
     try:
         # 1️⃣ Read existing file from S3
-        print(f"Downloading `{S3_FILE}` from `{S3_BUCKET}`...")
+        print(f"📥 Downloading `{S3_FILE}` from `{S3_BUCKET}`...")
         response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE)
         existing_data = response["Body"].read().decode("utf-8")
 
@@ -41,10 +54,13 @@ def append_records_to_s3():
         df_updated.to_csv(csv_buffer, index=False)
 
         # 4️⃣ Upload updated CSV back to S3
-        print(f"Uploading updated `{S3_FILE}` back to `{S3_BUCKET}`...")
+        print(f"📤 Uploading updated `{S3_FILE}` back to `{S3_BUCKET}`...")
         s3_client.put_object(Bucket=S3_BUCKET, Key=S3_FILE, Body=csv_buffer.getvalue())
 
         print("✅ Successfully appended 5 new records to employee.csv in S3!")
+
+        # 5️⃣ Trigger AWS Lambda after successful upload
+        trigger_lambda()
 
     except Exception as e:
         print(f"❌ Error updating `employee.csv`: {e}")
