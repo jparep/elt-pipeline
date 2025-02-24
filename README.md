@@ -3,8 +3,8 @@
 ## Setup Instructions
 
 1. **Snowflake**:
-   - Ensure `employee_db.employee.employees` table exists (see `dbt_project/models/snowflake/create_employees.sql`).
-   - Configure Snowflake credentials in `dbt_project/profiles/profiles.yml`.
+   - Ensure `employee_db.employee.employees` table exists (see `models/snowflake/create_employees.sql`).
+   - Configure Snowflake credentials in `profiles/profiles.yml`.
 
 2. **AWS Lambda**:
    - Deploy `lambda/lambda_function.py` with `lambda/requirements.txt`.
@@ -13,7 +13,7 @@
 
 3. **dbt**:
    - Install dbt: `pip install dbt-snowflake`.
-   - Update `dbt_project/profiles/profiles.yml` with Snowflake credentials.
+   - Update `profiles/profiles.yml` with Snowflake credentials.
    - Run `dbt deps` and `dbt run` from `dbt_project/` to validate or summarize data.
 
 4. **Testing**:

@@ -30,3 +30,14 @@ models:
         description: "Average age in the group"
       - name: last_updated
         description: "Most recent load timestamp"
+
+# dbt_project/schema.yml (under models.employees)
+tests:
+  - dbt_utils.unique_combination_of_columns:
+      combination_of_columns: [first, last, age, sex]
+  - dbt_utils.not_null:
+      column: age
+  - dbt_utils.not_null:
+      column: first
+  - dbt_utils.not_null:
+      column: last

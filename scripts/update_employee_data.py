@@ -6,16 +6,13 @@ import os
 # Initialize S3 client
 s3 = boto3.client('s3')
 
-BUCKET_NAME = 's3b2025'
+BUCKET_NAME = 's3-sfbucket'
 PREFIX = 'employee_'
 
 def generate_sample_data():
     return [
-        {'first': 'Sam', 'last': 'Williams', 'age': 22, 'sex': 'Male'},
-        {'first': 'Emily', 'last': 'Brown', 'age': 21, 'sex': 'Female'},
-        {'first': 'Liam', 'last': 'Taylor', 'age': 19, 'sex': 'Male'},
-        {'first': 'Sophia', 'last': 'Anderson', 'age': 18, 'sex': 'Female'},
-        {'first': 'Michael', 'last': 'Clark', 'age': 23, 'sex': 'Male'}
+        {'first': 'Alice', 'last': 'Brown', 'age': 30, 'sex': 'F'},
+        {'first': 'Charlie', 'last': 'Davis', 'age': 40, 'sex': 'M'}
     ]
 
 def upload_to_s3(data):

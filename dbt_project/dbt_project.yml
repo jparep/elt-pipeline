@@ -23,7 +23,7 @@ models:
   dbt_project:
     staging:
       materialized: view
-    snowflake:
+    raw:
       materialized: table
     transformed:
       materialized: table
